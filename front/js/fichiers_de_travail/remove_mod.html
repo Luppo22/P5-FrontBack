@@ -1,0 +1,84 @@
+<!DOCTYPE HTML> 
+<html> 
+    <head> 
+        <title> 
+            How to remove an HTML element using JavaScript ?
+        </title>
+
+<style>
+@import url(https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;700);
+
+html, body {
+  font-family: "Roboto Mono", monospace;
+  font-size: 100%;
+			text-align:center;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  }
+		body {
+			}
+		h1 {
+			color:green;
+			}
+
+		#gfg_up {
+			font-size: 19px; 
+			font-weight: bold;
+		}
+
+		#gfg_down {
+			color: green; 
+			font-size: 24px; 
+			font-weight: bold;
+		}
+
+.redbox {
+	display: block;
+	background-color: #ff0000;
+	border: 4px solid orange;
+	height: 100px;
+	width: 200px;
+	margin: 0 auto;
+	color: white;
+	}
+
+</style>
+</head>
+      
+    <body>         
+          
+        <h1> 
+            GeeksForGeeks 
+        </h1>
+          
+        <p id = "gfg_up">
+        </p>
+          
+        <div id = "gfg_div" class='redbox'>
+            This is Div box.
+        </div>
+        <br>
+          
+        <button onClick = "gfgFun()">
+            click here
+        </button>
+          
+        <p id = "gfg_down">
+        </p>
+          
+        <!-- Script to remove HTML element -->
+        <script>
+            var up = document.getElementById('gfg_up');
+            var down = document.getElementById('gfg_down');
+            var div = document.getElementById('gfg_div');
+            up.innerHTML = "Click on button to remove the element.";
+              
+            function gfgFun() {
+                div.remove();
+                down.innerHTML = "Element is removed."; 
+            }
+        </script> 
+    </body> 
+</html>              

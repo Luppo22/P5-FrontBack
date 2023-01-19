@@ -1,0 +1,30 @@
+À CORRIGER
+
+//let produitLocalStorage = JSON.parse(localStorage.getItem("produit")); -> (github) 
+//let userProducts = JSON.parse(localStorage.getItem('prodStorage'));    -> moi
+
+
+
+// Suppression d'un produit
+function deleteProduct() {
+    let deleteBtn = document.querySelectorAll(".deleteItem");
+
+    for (let j = 0; j < deleteBtn.length; j++) {
+        deleteBtn[j].addEventListener("click", (event) => {
+            event.preventDefault();
+
+            //Selection de l'élément à supprimer en fonction de son id et sa couleur
+            let idDelete = userProducts[j].id;
+            let colorDelete = userProducts[j].color;
+
+            userProducts = userProducts.filter( el => el.id !== idDelete || el.color !== colorDelete );
+            
+            localStorage.setItem("prodStorage", JSON.stringify(userProducts));
+
+            //Alerte produit supprimé et refresh
+            alert("Ce produit a bien été supprimé du panier");
+            location.reload();
+        })
+    }
+}
+deleteProduct();

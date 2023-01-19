@@ -1,0 +1,27 @@
+BASE GITHUB
+
+let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+// Suppression d'un produit
+function deleteProduct() {
+    let btn_supprimer = document.querySelectorAll(".deleteItem");
+
+    for (let j = 0; j < btn_supprimer.length; j++){
+        btn_supprimer[j].addEventListener("click" , (event) => {
+            event.preventDefault();
+
+            //Selection de l'element à supprimer en fonction de son id ET sa couleur
+            let idDelete = produitLocalStorage[j].idProduit;
+            let colorDelete = produitLocalStorage[j].couleurProduit;
+
+            produitLocalStorage = produitLocalStorage.filter( el => el.idProduit !== idDelete || el.couleurProduit !== colorDelete );
+            
+            localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+
+            //Alerte produit supprimé et refresh
+            alert("Ce produit a bien été supprimé du panier");
+            location.reload();
+        })
+    }
+}
+deleteProduct();

@@ -1,0 +1,72 @@
+//Parcourir les objets contenus dans le tableau 'userProducts' 
+function printList(list) {
+    // Faire une boucle sur le nombre d'objet que le tableau contient
+    for (var i = 0; i < list.length; i++) {
+        // Ici nouvelle boucle sur chaque objet de la liste 
+        for (let userProduct in list) {
+
+            // Acceder aux propriétés de l'objet :
+            console.log(list[userProduct].id);
+            console.log(list[userProduct].color);
+            console.log(list[userProduct].quantity);
+        }
+    }
+}
+// Appel de la fonction en lui passant le nom du tableau
+printList(userProducts);
+
+
+// Suppression d'un produit
+function deleteProduct() {
+    let deleteBtn = document.querySelectorAll(".deleteItem");
+
+    for (let j = 0; j < deleteBtn.length; j++) {
+        deleteBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            //Selection de l'élément à supprimer en fonction de son id et sa couleur
+            let idDelete = userProducts.id;
+            let colorDelete = userProducts.color;
+
+            userProducts = userProducts.filter(el => el.id !== idDelete || el.color !== colorDelete);
+
+            localStorage.setItem("prodStorage", JSON.stringify(userProducts));
+
+            //Alerte produit supprimé et refresh
+            alert("Ce produit a bien été supprimé du panier");
+            location.reload();
+        })
+    }
+}
+deleteProduct();
+
+
+
+
+
+
+///////////base secu
+
+// Suppression d'un produit
+function deleteProduct() {
+    let deleteBtn = document.querySelectorAll(".deleteItem");
+
+    for (let j = 0; j < deleteBtn.length; j++) {
+        deleteBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            //Selection de l'élément à supprimer en fonction de son id et sa couleur
+            let idDelete = userProducts.id;
+            let colorDelete = userProducts.color;
+
+            userProducts = userProducts.filter(el => el.id !== idDelete || el.color !== colorDelete);
+
+            localStorage.setItem("prodStorage", JSON.stringify(userProducts));
+
+            //Alerte produit supprimé et refresh
+            alert("Ce produit a bien été supprimé du panier");
+            location.reload();
+        })
+    }
+}
+deleteProduct();

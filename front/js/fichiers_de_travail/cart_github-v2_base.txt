@@ -1,0 +1,118 @@
+From GitHub _ v2
+
+// valider la commande//
+
+function validerlacommande() {
+  /*
+   *
+   * Expects request to contain:
+   * contact: {
+   *   firstName: string,
+   *   lastName: string,
+   *   address: string,
+   *   city: string,
+   *   email: string
+   * }
+   * products: [string] <-- array of product _id
+   *
+   */
+
+  let firstName = document.querySelector("#firstName");
+  let lastName = document.querySelector("#lastName");
+  let address = document.querySelector("#address");
+  let city = document.querySelector("#city");
+  let email = document.querySelector("#email");
+  let nowYouHaveToPay = panier.map((product) => product.Id);
+
+  let readyCommande = {
+    contact: {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      address: address.value,
+      city: city.value,
+      email: email.value,
+    },
+    products: nowYouHaveToPay,
+  };
+
+  function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+      return true;
+    }
+    alert("Merci de vérifier le format de votre mail");
+    return false;
+  }
+
+  function ValidateFirstName(firstName) {
+    if (/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+/.test(firstName)) {
+      return true;
+    }
+    alert("Merci de vérifier le format de votre prénom");
+    return false;
+  }
+
+  function ValidateLastName(lastName) {
+    if (
+      /^[A-Za-zÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýžÅÆÉØåæéøÉËÏÓÖÜéëïóöüÄÅÖäåöÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸàâæçéèêëïîôœùûüÿÄÖÜẞäöüßÁÉÍÖÓŐÜÚŰáéíöóőüúűÁÆÐÉÍÓÖÞÚÝáæðéíóöþúýÀÈÉÌÒÓÙàèéìòóùÅÆÂÉÈÊØÓÒÔåæâéèêøóòôĄĆĘŁŃÓŚŹŻąćęłńóśźżÃÁÀÂÇÉÊÍÕÓÔÚÜãáàâçéêíõóôúüĂÂÎŞȘŢȚăâîşșţțÁÉÍÑÓÚÜáéíñóúüÄÅÉÖäåéöÂÇĞIİÎÖŞÜÛâçğıİîöşüû]+(?: [A-Za-zÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýžÅÆÉØåæéøÉËÏÓÖÜéëïóöüÄÅÖäåöÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸàâæçéèêëïîôœùûüÿÄÖÜẞäöüßÁÉÍÖÓŐÜÚŰáéíöóőüúűÁÆÐÉÍÓÖÞÚÝáæðéíóöþúýÀÈÉÌÒÓÙàèéìòóùÅÆÂÉÈÊØÓÒÔåæâéèêøóòôĄĆĘŁŃÓŚŹŻąćęłńóśźżÃÁÀÂÇÉÊÍÕÓÔÚÜãáàâçéêíõóôúüĂÂÎŞȘŢȚăâîşșţțÁÉÍÑÓÚÜáéíñóúüÄÅÉÖäåéöÂÇĞIİÎÖŞÜÛâçğıİîöşüû]+)*$/.test(
+        lastName
+      )
+    ) {
+      return true;
+    }
+    alert("Merci de vérifier le format de votre nom");
+    return false;
+  }
+
+  function ValidateAddress(address) {
+    if (/^\d+\s[A-z]+\s[A-z]+/.test(address)) {
+      return true;
+    }
+    alert("Merci de vérifier le format de votre Adresse");
+    return false;
+  }
+
+  var valideMail = ValidateEmail(email.value);
+  var validefirstName = ValidateFirstName(firstName.value);
+  var valideLastName = ValidateLastName(lastName.value);
+  var valideAddress = ValidateAddress(address.value);
+
+  if (
+    validefirstName === false ||
+    valideLastName === false ||
+    valideAddress === false ||
+    city.value === "" ||
+    valideMail === false
+  ) {
+    alert("Merci de vérifier tous les champs ");
+  } else {
+    const order = readyCommande;
+
+    fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      body: JSON.stringify(order),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        //localStorage.setItem("orderId", data.orderId);
+        alert("Voici votre n° de la commande : " + data.orderId);
+        window.location = "confirmation.html?id=" + data.orderId;
+      })
+      .catch((error) => {
+        alert("API HS : " + error);
+      });
+  }
+}
+
+// desactiver submit du bouton "Commander" //
+
+let orderButton = document.querySelector("#order");
+
+orderButton.addEventListener("click", (eventOnClick) => {
+  eventOnClick.preventDefault();
+  validerlacommande();
+});

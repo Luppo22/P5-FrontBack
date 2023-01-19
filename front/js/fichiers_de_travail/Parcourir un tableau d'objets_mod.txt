@@ -1,0 +1,20 @@
+Parcourir un tableau d'objets
+
+let userProducts;
+
+//Parcourir les objets contenus dans le tableau 'userProducts' 
+function printList(list) {
+    // Faire une boucle sur le nombre d'objet que le tableau contient
+    for (var i = 0; i < list.length; i++) {
+        // Ici nouvelle boucle sur chaque objet de la liste 
+        for (let userProduct in list) {
+
+            // Acceder aux propriétés de l'objet :
+            console.log(list[userProduct].id);
+            console.log(list[userProduct].color);
+            console.log(list[userProduct].quantity);
+        }
+    }
+}
+// Appel de la fonction en lui passant le nom du tableau
+printList(userProducts);

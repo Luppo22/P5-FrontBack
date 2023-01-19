@@ -1,0 +1,48 @@
+Parcourir un tableau d'objets
+
+let listHTML;
+let students = [
+  {
+    name: 'ZOZO',
+    track: 'Javascript fullstack',
+    achievements: 5,
+    points: 1552
+  },
+
+  {
+    name: 'POPO',
+    track: 'Javascript fullstack',
+    achievements: 5,
+    points: 1552
+  },
+
+  {
+    name: 'OHO',
+    track: 'Digital master painting',
+    achievements: 2,
+    points: 225
+  },
+]
+
+
+function printList (list) {
+  listHTML = '<ul>'
+
+  // La tu fais une boucle sur le nombre d'objet que ton tableau contient
+  for (var i = 0; i < list.length; i++) { 
+	// Ici nouvelle boucle sur chaque objet de la liste 
+	for (var student in list) { 
+      
+	// Ici tu as accès à l'objet donc tu peux afficher ses propriétés par exemple :
+	// console.log(list[student].name) tu obtiens : ZOZO puis POPO puis OHO etc...
+
+	// Ceci renvoit object car tu ne précise aucune propriété de ton objet 
+	document.write(list[student]) 
+    }
+
+  }
+  listHTML += '</ul>'
+  document.write(listHTML)
+}
+
+printList(students) // Tu fais appel de ta fonction en lui passant ta liste
