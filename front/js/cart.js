@@ -312,7 +312,7 @@ formContainer.email.addEventListener('change', function () {
     validateEmail(this);
 });
 
-
+// On liste
 function createContactElement() {
     // SUBMIT COMMANDER
     //Récupération des données du formulaire
@@ -322,7 +322,9 @@ function createContactElement() {
     let cityElement = document.getElementById('city');
     let mailElement = document.getElementById('email');
 
+    //console.log(userProducts.map(product => product.id));
     return {
+        // créer l'objet 'contact'
         contact: {
             firstName: firstNameElement.value,
             lastName: lastNameElement.value,
@@ -330,62 +332,34 @@ function createContactElement() {
             city: cityElement.value,
             email: mailElement.value,
         },
-        products: []
+        // créer un tableau 'products' avec la liste des Id de userProducts
+        products: userProducts.map(product => product.id) 
     }
 }
+//console.log(createContactElement());
 
-
-/*
 function validerlacommande() {
-
-    //Récupération des données du formulaire
-    let firstNameElement = document.getElementById('firstName');
-    let lastNameElement = document.getElementById('lastName');
-    let adressElement = document.getElementById('address');
-    let cityElement = document.getElementById('city');
-    let mailElement = document.getElementById('email');
-    let nowYouHaveToPay = userProducts.map((product) => productItem.id);
-  
-    let readyCommande = {
-      contact: {
-        firstName: firstNameElement.value,
-        lastName: lastNameElement.value,
-        address: adressElement.value,
-        city: cityElement.value,
-        email: mailElement.value,
-      },
-      products: nowYouHaveToPay,
-    };
-
-    const order = readyCommande;
-
-    fetch("http://localhost:3000/api/products/order", {
-        method: "POST",
-        body: JSON.stringify(order),
-        headers: {
-            "Content-Type": "application/json",
-        },
+fetch("http://localhost:3000/api/products/order", {
+    method: "POST",
+    body: JSON.stringify(createContactElement()),
+    headers: {
+        "Content-Type": "application/json",
+    },
+})
+    .then((data) => {
+        return data.json();
     })
-        .then((data) => {
-            return data.json();
-        })
-        .then((data) => {
-            //localStorage.setItem("orderId", data.orderId);
-            alert("Voici votre n° de la commande : " + data.orderId);
-            window.location = "confirmation.html?id=" + data.orderId;
-        })
-        .catch((error) => {
-            alert("API HS : " + error);
-        });
-        console.log(nowYouHaveToPay);
+    .then((data) => {
+        window.location = "confirmation.html?id=" + data.orderId;
+    })
+    .catch((error) => {
+        alert("API HS : " + error);
+    });
 }
-
-// desactiver submit du bouton "Commander" //
 let orderButton = document.querySelector("#order");
 
 orderButton.addEventListener("click", (eventOnClick) => {
+    // désactiver l'envoi par defaut du bouton "Commander" //
     eventOnClick.preventDefault();
     validerlacommande();
 });
-*/
-
